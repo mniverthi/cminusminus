@@ -10,7 +10,7 @@ class Lexer {
         std::string source;
         int length;
         int current_line;
-        int current_char;
+        int current_linechar;
     public:
         Lexer(std::string path) { }
         void nextCharacter() { }
@@ -19,5 +19,6 @@ class Lexer {
         void skipSpace() { }
         void skipComment() { }
         char getToken() { }
+        void abortMission(string message) { }
 };
 #endif

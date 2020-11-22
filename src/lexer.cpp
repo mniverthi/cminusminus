@@ -1,5 +1,6 @@
 #include <bits/stdc++.h>
 #include "lexer.hpp"
+#include "token.hpp"
 using namespace std;
 
 Lexer::Lexer(string path) { // initializes lexer class and sets up input string for parsing
@@ -38,6 +39,12 @@ void Lexer::skipComment() {
     
 }
 char Lexer::getToken() {
-    if ()
+    Token::Token current();
+    
+}
+void Lexer::abortMission(string message) {
+    cout << "Lexing error: " << message << endl;
+    cout << "Occurred at: \t" << "Line " << current_line << ", Char " << current_linechar << endl;
+    exit(EXIT_FAILURE);
 }
 
