@@ -38,23 +38,31 @@ void Lexer::skipSpace() {
 
 }
 string Lexer::getToken() {
-    Token::Token* current;
+    Token current;
     if (current_char == '+') {
         current.setContent('+');
-        current.setType(TokenType.PLUS);
+        current.setType(TokenType::PLUS);
     } else if (current_char == '-') {
         current.setContent('-');
-        current.setType(TokenType.MINUS);
+        current.setType(TokenType::MINUS);
     } else if (current_char == '*') {
-
+        current.setContent('*');
+        current.setType(TokenType::ASTERISK);
     } else if (current_char == '/') {
-
+        current.setContent('/');
+        current.setType(TokenType::SLASH);
     } else if (current_char == '\n') {
+        current.setContent('\n');
+        current.setType(TokenType::NEWLINE);
         current_line++;
         current_linepos = 0;
     } else if (current_char == '\0') {
+        current.setContent('\0');
+        current.setType(TokenType::ENDFILE);
+    } else {
 
     }
+    nextCharacter();
 }
 void Lexer::abortMission(string message) {
     cout << "Lexing error: " << message << endl;
