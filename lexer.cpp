@@ -8,8 +8,9 @@ class Lexer {
         int currentCharacter;
         string filePath;
         string source;
+        int length;
     public:
-        Lexer(string path) {
+        Lexer(string path) { // initializes lexer class and sets up input string for parsing
             ifstream temp(path);
             if (temp) {
                 stringstream ss;
@@ -18,21 +19,25 @@ class Lexer {
                 currentPosition = -1;
                 currentCharacter = 0;
                 filePath = path;
-                cout << source << endl;
-                nextCharacter();
+                length = source.length();
+                // cout << source << endl;
+                nextToken();
             } else {
                 exit(EXIT_FAILURE);
             }
         }
-        void nextCharacter() {
-            currentPosition++;
-            currentCharacter = source[currentPosition];
+        void nextToken() { // moves next character pointer
+            if (++currentPosition >= length) {
+                currentCharacter = '\0'; // reached the end of the file
+            } else {
+                currentCharacter = source[currentPosition];
+            }
         }
         void skipComment() {
-
+            
         }
         char peekToken() {
-
+            return currentPosition + 1 >= length ? '\0' : source[currentPosition + 1];
         }
         void skipSpace() {
 
