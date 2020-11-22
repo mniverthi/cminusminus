@@ -4,13 +4,13 @@
 #include <string>
 class Lexer {
     private:
-        int current_pos;
-        int current_char;
+        int current_sourcepos;
+        char current_char;
         std::string file_path;
         std::string source;
         int length;
         int current_line;
-        int current_linechar;
+        int current_linepos;
     public:
         Lexer(std::string path) { }
         void nextCharacter() { }

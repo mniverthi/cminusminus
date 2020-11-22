@@ -9,10 +9,10 @@ Lexer::Lexer(string path) { // initializes lexer class and sets up input string 
         stringstream ss;
         ss << temp.rdbuf();
         source = ss.str();
-        current_pos = -1;
+        current_sourcepos = -1;
         current_char = 0;
-        current_linechar = 0;
-        current_line = 0;
+        current_linepos = 1;
+        current_line = 1;
         file_path = path;
         length = source.length();
         // cout << source << endl;
@@ -22,28 +22,43 @@ Lexer::Lexer(string path) { // initializes lexer class and sets up input string 
     }
 }
 void Lexer::nextCharacter() { // moves next character pointer
-    if (++current_pos >= length) {
+    if (++current_sourcepos >= length) {
         current_char = '\0'; // reached the end of the file
     } else {
-        current_char = source[current_pos];
+        current_char = source[current_sourcepos];
     }
 }
 void Lexer::skipComment() {
 
 }
 char Lexer::peekCharacter() {
-    return current_pos + 1 >= length ? '\0' : source[current_pos + 1];
+    return current_sourcepos + 1 >= length ? '\0' : source[current_sourcepos + 1];
 }
 void Lexer::skipSpace() {
 
 }
 string Lexer::getToken() {
-    
+    Token::Token* current;
+    if (current_char == '+') {
+        current.setContent('+');
+        current.setType(TokenType.PLUS);
+    } else if (current_char == '-') {
+        current.setContent('-');
+        current.setType(TokenType.MINUS);
+    } else if (current_char == '*') {
 
+    } else if (current_char == '/') {
+
+    } else if (current_char == '\n') {
+        current_line++;
+        current_linepos = 0;
+    } else if (current_char == '\0') {
+
+    }
 }
 void Lexer::abortMission(string message) {
     cout << "Lexing error: " << message << endl;
-    cout << "Occurred at: \t" << "Line " << current_line + 1 << ", Char " << current_linechar << endl;
+    cout << "Occurred at: \t" << "Line " << current_line << ", Char " << current_linepos << endl;
     exit(EXIT_FAILURE);
 }
 
