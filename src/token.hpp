@@ -8,6 +8,7 @@ class Token {
 	public:
 		Token(TokenType which, std::string input) { }
 		Token(TokenType which, char input) { }
+		Token() { }
 		TokenType getType() { }
 		std::string getContent() { }
 		void setType(TokenType which) { }

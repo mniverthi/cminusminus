@@ -8,6 +8,7 @@ Token::Token(TokenType which, char input) {
     type = which;
     text = to_string(input);
 }
+Token::Token() { }
 string Token::getContent() {
     return text;
 }

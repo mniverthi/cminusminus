@@ -60,7 +60,7 @@ string Lexer::getToken() {
         current.setContent('\0');
         current.setType(TokenType::ENDFILE);
     } else {
-
+        
     }
     nextCharacter();
 }
