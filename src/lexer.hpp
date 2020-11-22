@@ -12,26 +12,12 @@ class Lexer {
         int current_line;
         int current_char;
     public:
-        Lexer(std::string path) { 
-            
-        }
-        void nextCharacter() { 
-
-        }
-        void skipComment() {
-
-        }
-        char peekCharacter() {
-
-        }
-        void skipSpace() {
-
-        }
-        void skipComment() {
-            
-        }
-        char getToken() {
-
-        }
+        Lexer(std::string path) { }
+        void nextCharacter() { }
+        void skipComment() { }
+        char peekCharacter() { }
+        void skipSpace() { }
+        void skipComment() { }
+        char getToken() { }
 };
 #endif
