@@ -1,5 +1,5 @@
 # cminusminus
-Attempt at building compiler for C-- programming language (lol)
+Attempt at building compiler for MangoLang programming language (lol)
 ### Features
 * Numerical variables
 * Basic arithmetic
