@@ -11,6 +11,16 @@ Token::Token(TokenType which, char input) {
 string Token::getContent() {
     return text;
 }
-Token::TokenType Token::getType() {
+TokenType Token::getType() {
     return type;
 }
+void Token::setType(TokenType which) { 
+    type = which;
+}
+void Token::setContent(std::string input) { 
+    text = input;
+}
+void Token::setContent(char input) { 
+    text = to_string(input);
+}
+            

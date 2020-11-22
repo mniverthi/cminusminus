@@ -11,6 +11,8 @@ Lexer::Lexer(string path) { // initializes lexer class and sets up input string 
         source = ss.str();
         current_pos = -1;
         current_char = 0;
+        current_linechar = 0;
+        current_line = 0;
         file_path = path;
         length = source.length();
         // cout << source << endl;
@@ -35,16 +37,13 @@ char Lexer::peekCharacter() {
 void Lexer::skipSpace() {
 
 }
-void Lexer::skipComment() {
+string Lexer::getToken() {
     
-}
-char Lexer::getToken() {
-    Token::Token current();
-    
+
 }
 void Lexer::abortMission(string message) {
     cout << "Lexing error: " << message << endl;
-    cout << "Occurred at: \t" << "Line " << current_line << ", Char " << current_linechar << endl;
+    cout << "Occurred at: \t" << "Line " << current_line + 1 << ", Char " << current_linechar << endl;
     exit(EXIT_FAILURE);
 }
 
