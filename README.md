@@ -1,4 +1,4 @@
-# cminusminus
+# MangoLang
 Attempt at building compiler for MangoLang programming language (lol)
 ### Features
 * Numerical variables
