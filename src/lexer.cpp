@@ -47,6 +47,7 @@ string Lexer::getToken() {
     skipSpace();
     skipComment();
     Token current;
+    int start_pos = current_sourcepos;
     switch (current_char) {
         case '+':
             current.setContent('+');
@@ -111,16 +112,33 @@ string Lexer::getToken() {
             break;
         case '\"':
             nextCharacter();
-            int left = current_sourcepos;
             while (current_char != '\"') {
                 if (current_char == '\r' || current_char == '\n' || current_char == '\t' || current_char == '\\' || current_char == '%')
-                    abort("Illegal character in string.");
+                    abort("Illegal character in string");
                 nextCharacter();
             }
-            current.setContent(source.substr(left, current_sourcepos - left));
+            current.setContent(source.substr(start_pos + 1, current_sourcepos - (start_pos + 1)));
             current.setType(TokenType::STRING);
             break;
         default:
+            if (isdigit(current_char)) {
+                while (isdigit(peekCharacter())) {
+                    nextCharacter();
+                }
+                if (peekCharacter() == '.') {
+                    nextCharacter();
+                    if (!isdigit(peekCharacter())) {
+                        abort("Invalid numeric literal");
+                    }
+                    while (isdigit(peekCharacter())) {
+                        nextCharacter();
+                    }
+                    current.setContent(source.substr(start_pos, current_sourcepos - start_pos));
+                    current.setType(TokenType::NUMBER);
+                }
+            } else if (isalpha(current_char)) {
+                
+            }
             abort("Invalid token detected");
         }
     nextCharacter();
