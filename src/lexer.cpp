@@ -39,32 +39,40 @@ void Lexer::skipSpace() {
 }
 string Lexer::getToken() {
     Token current;
-    if (current_char == '+') {
-        current.setContent('+');
-        current.setType(TokenType::PLUS);
-    } else if (current_char == '-') {
-        current.setContent('-');
-        current.setType(TokenType::MINUS);
-    } else if (current_char == '*') {
-        current.setContent('*');
-        current.setType(TokenType::ASTERISK);
-    } else if (current_char == '/') {
-        current.setContent('/');
-        current.setType(TokenType::SLASH);
-    } else if (current_char == '\n') {
-        current.setContent('\n');
-        current.setType(TokenType::NEWLINE);
-        current_line++;
-        current_linepos = 0;
-    } else if (current_char == '\0') {
-        current.setContent('\0');
-        current.setType(TokenType::ENDFILE);
-    } else {
-        // TODO: multichar tokens
-    }
+    switch (current_char) {
+        case '+':
+            current.setContent('+');
+            current.setType(TokenType::PLUS);
+            break;
+        case '-':
+            current.setContent('-');
+            current.setType(TokenType::MINUS);
+            break;
+        case '/':
+            current.setContent('/');
+            current.setType(TokenType::SLASH);
+            break;
+        case '*':
+            current.setContent('*');
+            current.setType(TokenType::ASTERISK);
+            break;
+        case '\n':
+            current.setContent('\n');
+            current.setType(TokenType::NEWLINE);
+            current_line++;
+            current_linepos = 0;
+            break;
+        case '\0':
+            current.setContent('\0');
+            current.setType(TokenType::ENDFILE);
+            break;
+        case 
+        default:
+            abort("Invalid token detected");
+        }
     nextCharacter();
 }
-void Lexer::abortMission(string message) {
+void Lexer::abort(string message) {
     cout << "Lexing error: " << message << endl;
     cout << "Occurred at: \t" << "Line " << current_line << ", Char " << current_linepos << endl;
     exit(EXIT_FAILURE);
