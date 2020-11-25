@@ -109,6 +109,17 @@ string Lexer::getToken() {
                 abort("Invalid token detected");
             }
             break;
+        case '\"':
+            nextCharacter();
+            int left = current_sourcepos;
+            while (current_char != '\"') {
+                if (current_char == '\r' || current_char == '\n' || current_char == '\t' || current_char == '\\' || current_char == '%')
+                    abort("Illegal character in string.");
+                nextCharacter();
+            }
+            current.setContent(source.substr(left, current_sourcepos - left));
+            current.setType(TokenType::STRING);
+            break;
         default:
             abort("Invalid token detected");
         }
@@ -116,7 +127,7 @@ string Lexer::getToken() {
 }
 void Lexer::abort(string message) {
     cout << "Lexing error: " << message << endl;
-    cout << "Occurred at: \t" << "Line " << current_line << ", Char " << current_linepos << endl;
+    cout << "Occurred at: \t" << "Line " << current_line << ", Character " << current_linepos << endl;
     exit(EXIT_FAILURE);
 }
 
