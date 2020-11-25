@@ -29,15 +29,23 @@ void Lexer::nextCharacter() { // moves next character pointer
     }
 }
 void Lexer::skipComment() {
-
+    if (current_char == '#') {
+        while (current_char != '\n') {
+            nextCharacter();
+        }
+    }
 }
 char Lexer::peekCharacter() {
     return current_sourcepos + 1 >= length ? '\0' : source[current_sourcepos + 1];
 }
 void Lexer::skipSpace() {
-
+    while (current_char == ' ' || current_char == '\t' || current_char == '\r') {
+        nextCharacter();
+    }
 }
 string Lexer::getToken() {
+    skipSpace();
+    skipComment();
     Token current;
     switch (current_char) {
         case '+':
@@ -66,7 +74,41 @@ string Lexer::getToken() {
             current.setContent('\0');
             current.setType(TokenType::ENDFILE);
             break;
-        case 
+        case '=':
+            if (peekCharacter() == '=') {
+                current.setContent("==");
+                current.setType(TokenType::EQEQ);
+            } else {
+                current.setContent("=");
+                current.setType(TokenType::EQ);
+            }
+            break;
+        case '<':
+            if (peekCharacter() == '=') {
+                current.setContent("<=");
+                current.setType(TokenType::LTEQ);
+            } else {
+                current.setContent("<");
+                current.setType(TokenType::LT);
+            }
+            break;
+        case '>':
+            if (peekCharacter() == '=') {
+                current.setContent(">=");
+                current.setType(TokenType::GTEQ);
+            } else {
+                current.setContent(">");
+                current.setType(TokenType::GT);
+            }
+            break;
+        case '!':
+            if (peekCharacter() == '=') {
+                current.setContent("!=");
+                current.setType(TokenType::NOTEQ);
+            } else {
+                abort("Invalid token detected");
+            }
+            break;
         default:
             abort("Invalid token detected");
         }
