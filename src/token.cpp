@@ -39,6 +39,6 @@ TokenType Token::isKeyword(string text) {
         }
         advance(it, 1);
     }
-    return TokenType::ENDFILE; 
+    return TokenType::IDENT; 
 }
             

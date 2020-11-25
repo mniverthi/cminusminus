@@ -141,11 +141,12 @@ string Lexer::getToken() {
                     nextCharacter();
                 }
                 string content = source.substr(start_pos, current_sourcepos - start_pos + 1);
-                if (Token::isKeyword(content)) {
-                    
-                }
+                TokenType actual = Token::isKeyword(content);
+                current.setContent(content);
+                current.setType(actual);
+            } else {
+                abort("Invalid token detected");
             }
-            abort("Invalid token detected");
         }
     nextCharacter();
 }
