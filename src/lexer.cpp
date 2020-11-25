@@ -137,7 +137,20 @@ string Lexer::getToken() {
                     current.setType(TokenType::NUMBER);
                 }
             } else if (isalpha(current_char)) {
-                
+                while (isalpha(peekCharacter()) || isdigit(peekCharacter())) {
+                    nextCharacter();
+                }
+                if (peekCharacter() == '.') {
+                    nextCharacter();
+                    if (!isdigit(peekCharacter())) {
+                        abort("Invalid numeric literal");
+                    }
+                    while (isdigit(peekCharacter())) {
+                        nextCharacter();
+                    }
+                    current.setContent(source.substr(start_pos, current_sourcepos - start_pos));
+                    current.setType(TokenType::NUMBER);
+                }
             }
             abort("Invalid token detected");
         }

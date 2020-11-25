@@ -9,6 +9,7 @@ class Token {
 		TokenType type;
 	public:
 		static unordered_map<TokenType, string> type_vals; 
+		static bool isKeyword(TokenType type, string text) { }
 		Token(TokenType which, std::string input) { }
 		Token(TokenType which, char input) { }
 		Token() { }
@@ -17,8 +18,7 @@ class Token {
 		void setType(TokenType which) { }
 		void setContent(std::string input) { }
 		void setContent(char input) { }
-		bool isCharacter() { }
-		bool isKeyword() { }
+		bool isCharacter() { }	
 };
 enum TokenType {
 	ENDFILE = -1,
