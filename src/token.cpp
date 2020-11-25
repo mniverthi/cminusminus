@@ -28,4 +28,7 @@ void Token::setContent(char input) {
 bool Token::isCharacter() {
     return text.length() == 1;
 }
+bool Token::isKeyword() {
+    return type >= 100 && type <= 200;
+}
             

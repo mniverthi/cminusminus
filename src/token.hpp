@@ -1,3 +1,4 @@
+#pragma ONCE
 #ifndef TOKEN
 #define TOKEN
 #include <string>
@@ -15,6 +16,7 @@ class Token {
 		void setContent(std::string input) { }
 		void setContent(char input) { }
 		bool isCharacter() { }
+		bool isKeyword() { }
 };
 enum TokenType {
 	ENDFILE = -1,
