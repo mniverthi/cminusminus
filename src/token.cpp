@@ -1,7 +1,7 @@
 #include "token.hpp"
 using namespace std;
 //should probably add all token types
-std::unordered_map<TokenType, string> Token::type_vals = {{LABEL, "LABEL"}, {GOTO, "GOTO"}, {PRINT, "PRINT"}, {INPUT, "INPUT"}, {LET, "LET"}, {IF, "IF"}, 
+std::unordered_map<TokenType, string> Token::keywords = {{LABEL, "LABEL"}, {GOTO, "GOTO"}, {PRINT, "PRINT"}, {INPUT, "INPUT"}, {LET, "LET"}, {IF, "IF"}, 
 {THEN, "THEN"}, {ENDIF, "ENDIF"}, {WHILE, "WHILE"}, {REPEAT, "REPEAT"}, {ENDWHILE, "ENDWHILE"}};
 
 Token::Token(TokenType which, std::string input) {
@@ -32,8 +32,8 @@ bool Token::isCharacter() {
     return text.length() == 1;
 }
 TokenType Token::isKeyword(string text) {
-    std::unordered_map<TokenType, string>::iterator it = type_vals.begin();
-    while (it != type_vals.end()) {
+    std::unordered_map<TokenType, string>::iterator it = keywords.begin();
+    while (it != keywords.end()) {
         if (!text.compare(it -> second)) {
             return it -> first;
         }
