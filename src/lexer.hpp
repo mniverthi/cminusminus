@@ -19,6 +19,6 @@ class Lexer {
         void skipSpace() { }
         void skipComment() { }
         string getToken() { }
-        void abortMission(string message) { }
+        void abort(string message) { }
 };
 #endif

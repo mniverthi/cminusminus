@@ -26,6 +26,6 @@ void Token::setContent(char input) {
     text = to_string(input);
 }
 bool Token::isCharacter() {
-    return !text.length();
+    return text.length() == 1;
 }
             
