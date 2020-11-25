@@ -18,7 +18,7 @@ class Lexer {
         char peekCharacter() { }
         void skipSpace() { }
         void skipComment() { }
-        string getToken() { }
+        Token* getToken() { }
         void abort(string message) { }
 };
 #endif

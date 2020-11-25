@@ -43,69 +43,69 @@ void Lexer::skipSpace() {
         nextCharacter();
     }
 }
-string Lexer::getToken() {
+Token* Lexer::getToken() {
     skipSpace();
     skipComment();
-    Token current;
+    Token* current = new Token();
     int start_pos = current_sourcepos;
     switch (current_char) {
         case '+':
-            current.setContent('+');
-            current.setType(TokenType::PLUS);
+            current -> setContent('+');
+            current -> setType(TokenType::PLUS);
             break;
         case '-':
-            current.setContent('-');
-            current.setType(TokenType::MINUS);
+            current -> setContent('-');
+            current -> setType(TokenType::MINUS);
             break;
         case '/':
-            current.setContent('/');
-            current.setType(TokenType::SLASH);
+            current -> setContent('/');
+            current -> setType(TokenType::SLASH);
             break;
         case '*':
-            current.setContent('*');
-            current.setType(TokenType::ASTERISK);
+            current -> setContent('*');
+            current -> setType(TokenType::ASTERISK);
             break;
         case '\n':
-            current.setContent('\n');
-            current.setType(TokenType::NEWLINE);
+            current -> setContent('\n');
+            current -> setType(TokenType::NEWLINE);
             current_line++;
             current_linepos = 0;
             break;
         case '\0':
-            current.setContent('\0');
-            current.setType(TokenType::ENDFILE);
+            current -> setContent('\0');
+            current -> setType(TokenType::ENDFILE);
             break;
         case '=':
             if (peekCharacter() == '=') {
-                current.setContent("==");
-                current.setType(TokenType::EQEQ);
+                current -> setContent("==");
+                current -> setType(TokenType::EQEQ);
             } else {
-                current.setContent("=");
-                current.setType(TokenType::EQ);
+                current -> setContent("=");
+                current -> setType(TokenType::EQ);
             }
             break;
         case '<':
             if (peekCharacter() == '=') {
-                current.setContent("<=");
-                current.setType(TokenType::LTEQ);
+                current -> setContent("<=");
+                current -> setType(TokenType::LTEQ);
             } else {
-                current.setContent("<");
-                current.setType(TokenType::LT);
+                current -> setContent("<");
+                current -> setType(TokenType::LT);
             }
             break;
         case '>':
             if (peekCharacter() == '=') {
-                current.setContent(">=");
-                current.setType(TokenType::GTEQ);
+                current -> setContent(">=");
+                current -> setType(TokenType::GTEQ);
             } else {
-                current.setContent(">");
-                current.setType(TokenType::GT);
+                current -> setContent(">");
+                current -> setType(TokenType::GT);
             }
             break;
         case '!':
             if (peekCharacter() == '=') {
-                current.setContent("!=");
-                current.setType(TokenType::NOTEQ);
+                current -> setContent("!=");
+                current -> setType(TokenType::NOTEQ);
             } else {
                 abort("Invalid token detected");
             }
@@ -117,8 +117,8 @@ string Lexer::getToken() {
                     abort("Illegal character in string");
                 nextCharacter();
             }
-            current.setContent(source.substr(start_pos + 1, current_sourcepos - (start_pos + 1)));
-            current.setType(TokenType::STRING);
+            current -> setContent(source.substr(start_pos + 1, current_sourcepos - (start_pos + 1)));
+            current -> setType(TokenType::STRING);
             break;
         default:
             if (isdigit(current_char)) {
@@ -133,8 +133,8 @@ string Lexer::getToken() {
                     while (isdigit(peekCharacter())) {
                         nextCharacter();
                     }
-                    current.setContent(source.substr(start_pos, current_sourcepos - start_pos + 1));
-                    current.setType(TokenType::NUMBER);
+                    current -> setContent(source.substr(start_pos, current_sourcepos - start_pos + 1));
+                    current -> setType(TokenType::NUMBER);
                 }
             } else if (isalpha(current_char)) {
                 while (isalpha(peekCharacter()) || isdigit(peekCharacter())) {
@@ -142,13 +142,15 @@ string Lexer::getToken() {
                 }
                 string content = source.substr(start_pos, current_sourcepos - start_pos + 1);
                 TokenType actual = Token::isKeyword(content);
-                current.setContent(content);
-                current.setType(actual);
+                current -> setContent(content);
+                current -> setType(actual);
             } else {
+                delete current;
                 abort("Invalid token detected");
             }
         }
     nextCharacter();
+    return current;
 }
 void Lexer::abort(string message) {
     cout << "Lexing error: " << message << endl;
