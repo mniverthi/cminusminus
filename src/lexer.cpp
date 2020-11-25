@@ -146,6 +146,7 @@ Token* Lexer::getToken() {
                 current -> setType(actual);
             } else {
                 delete current;
+                // free previously allocated and check it actually works lmao
                 abort("Invalid token detected");
             }
         }
