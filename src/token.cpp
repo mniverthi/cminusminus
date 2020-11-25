@@ -1,5 +1,7 @@
 #include "token.hpp"
 using namespace std;
+//TODO: finish this lol
+std::unordered_map<TokenType, string> Token::type_vals = {{LABEL, "LABEL"}, {GOTO, "GOTO"}, {PRINT, "PRINT"}, {INPUT, "INPUT"}, {LET, "105"}, };
 
 Token::Token(TokenType which, std::string input) {
     type = which;
@@ -29,6 +31,6 @@ bool Token::isCharacter() {
     return text.length() == 1;
 }
 bool Token::isKeyword() {
-    return type >= 100 && type <= 200;
+    return !text.compare(type_vals[type]) && type >= 100 && type <= 200;
 }
             

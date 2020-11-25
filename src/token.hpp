@@ -2,11 +2,13 @@
 #ifndef TOKEN
 #define TOKEN
 #include <string>
+#include <unordered_map>
 class Token {
 	private:
 		std::string text;
 		TokenType type;
 	public:
+		static unordered_map<TokenType, string> type_vals; 
 		Token(TokenType which, std::string input) { }
 		Token(TokenType which, char input) { }
 		Token() { }
