@@ -1,7 +1,7 @@
 #include "token.hpp"
 using namespace std;
-//TODO: finish this lol
-std::unordered_map<TokenType, string> Token::type_vals = {{LABEL, "LABEL"}, {GOTO, "GOTO"}, {PRINT, "PRINT"}, {INPUT, "INPUT"}, {LET, "105"}, };
+std::unordered_map<TokenType, string> Token::type_vals = {{LABEL, "LABEL"}, {GOTO, "GOTO"}, {PRINT, "PRINT"}, {INPUT, "INPUT"}, {LET, "LET"}, {IF, "IF"}, 
+{THEN, "THEN"}, {ENDIF, "ENDIF"}, {WHILE, "WHILE"}, {REPEAT, "REPEAT"}, {ENDWHILE, "ENDWHILE"}};
 
 Token::Token(TokenType which, std::string input) {
     type = which;
