@@ -1,9 +1,5 @@
-#include <fstream>
-#include <iostream>
-#include <sstream>
 #include "lexer.hpp"
 using namespace std;
-
 Lexer::Lexer(string path) { // initializes lexer class and sets up input string for parsing
     ifstream temp(path);
     if (temp) {

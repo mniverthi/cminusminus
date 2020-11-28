@@ -2,6 +2,7 @@
 #ifndef PARSER
 #define PARSER
 #include <string>
+#include <stack>
 #include "lexer.hpp"
 class Parser {
     private:
@@ -10,6 +11,7 @@ class Parser {
         Token peek;
         int current_linepos;
         int current_line;
+        std::stack <Token> seen;
     public:
         Parser(Lexer lexer);
         void abort(std::string message);
