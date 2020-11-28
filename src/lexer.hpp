@@ -22,5 +22,7 @@ class Lexer {
         void skipComment();
         Token* getToken();
         void abort(string message);
+        int getCurrentLine();
+        int getCurrentLinePos();
 };
 #endif

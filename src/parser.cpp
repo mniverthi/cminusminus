@@ -18,10 +18,11 @@
 using namespace std;
 Parser::Parser(Lexer lex) {
     lexer = lex;
-    
+    curr = nullptr;
+    peek = nullptr;
 }
 void Parser::abort(string message) {
     cout << "Parsing error: " << message << endl;
-    cout << "Occurred at: \t" << "Line " << current_line << ", Character " << current_linepos << endl;
+    cout << "Occurred at: \t" << "Line " << lexer.getCurrentLine() << ", Character " << lexer.getCurrentLinePos() << endl;
     exit(EXIT_FAILURE);
 }
