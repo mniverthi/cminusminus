@@ -23,6 +23,19 @@ Parser::Parser(Lexer* lex) {
 }
 void Parser::abort(string message) {
     cout << "Parsing error: " << message << endl;
-    cout << "Occurred at: \t" << "Line " << lexer.getCurrentLine() << ", Character " << lexer.getCurrentLinePos() << endl;
+    cout << "Occurred at: \t" << "Line " << lexer -> getCurrentLine() << ", Character " << lexer -> getCurrentLinePos() << endl;
     exit(EXIT_FAILURE);
+}
+void Parser::nextToken() {
+    if (curr) {
+        delete curr;
+    }
+    curr = peek;
+    peek = lexer -> getToken();
+}
+void Parser::matchToken(TokenType desired) {
+    if (desired != curr -> getType()) {
+        abort("Expected " + desired + ", got " + curr -> getType());
+    }
+    nextToken();
 }

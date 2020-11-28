@@ -17,6 +17,6 @@ class Parser {
         bool checkToken();
         bool checkPeek();
         void nextToken();
-        void matchToken();
+        void matchToken(TokenType desired);
 };
 #endif
