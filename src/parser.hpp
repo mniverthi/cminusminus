@@ -7,12 +7,12 @@
 #include "lexer.hpp"
 class Parser {
     private:
-        Lexer lexer;
+        Lexer* lexer;
         Token* curr;
         Token* peek;
         std::stack<Token*> seen;
     public:
-        Parser(Lexer lexer);
+        Parser(Lexer* lexer);
         void abort(std::string message);
         bool checkToken();
         bool checkPeek();

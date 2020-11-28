@@ -21,7 +21,9 @@ int main(int argc, char** argv) {
         cout << "Invalid path." << endl;
         exit(EXIT_FAILURE);
     }
-    Lexer lex = Lexer(source);
-    Parser pars = Parser(lex); 
+    Lexer* lex = new Lexer(source);
+    Parser* pars = new Parser(lex); 
     //TODO: do stuff with this
+    delete lex;
+    delete pars;
 }
