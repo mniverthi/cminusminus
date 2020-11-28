@@ -9,16 +9,16 @@ class Token {
 		TokenType type;
 	public:
 		static unordered_map<TokenType, string> keywords; 
-		static TokenType isKeyword(string text) { }
-		Token(TokenType which, std::string input) { }
-		Token(TokenType which, char input) { }
-		Token() { }
-		TokenType getType() { }
-		std::string getContent() { }
-		void setType(TokenType which) { }
-		void setContent(std::string input) { }
-		void setContent(char input) { }
-		bool isCharacter() { }	
+		static TokenType isKeyword(string text);
+		Token(TokenType which, std::string input);
+		Token(TokenType which, char input);
+		Token();
+		TokenType getType();
+		std::string getContent();
+		void setType(TokenType which);
+		void setContent(std::string input);
+		void setContent(char input);
+		bool isCharacter();	
 };
 enum TokenType {
 	ENDFILE = -1,

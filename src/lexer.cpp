@@ -1,6 +1,7 @@
-#include <bits/stdc++.h>
+#include <fstream>
+#include <iostream>
+#include <sstream>
 #include "lexer.hpp"
-#include "token.hpp"
 using namespace std;
 
 Lexer::Lexer(string path) { // initializes lexer class and sets up input string for parsing
@@ -13,8 +14,9 @@ Lexer::Lexer(string path) { // initializes lexer class and sets up input string 
         current_char = 0;
         current_linepos = 1;
         current_line = 1;
-        file_path = path;
         length = source.length();
+        // Extras
+        // file_path = path;
         // cout << source << endl;
         nextCharacter();
     } else {
@@ -43,7 +45,7 @@ void Lexer::skipSpace() {
         nextCharacter();
     }
 }
-Token* Lexer::getToken() {
+Token* Lexer::getToken() { // next token logic
     skipSpace();
     skipComment();
     Token* current = new Token();
