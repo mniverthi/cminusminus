@@ -8,15 +8,11 @@ CFLAGS  = -g -Wall
 # the build target executable:
 TARGET = mangolang
 
-all: $(TARGET)
-	$(TARGET): $(TARGET).c
-	$(CC) $(CFLAGS) -o $(TARGET) $(TARGET).cpp
-
 clean:
-rm -rf *.o mangolang
+	@rm -rf *.o mangolang
 
-token:
-	$(CC) $(CFLAGS) -o token token.cpp
+token: 
+	@$(CC) -c $(CFLAGS) src/token.cpp
 
 lexer:
-	
+	@$(CC) -c $(CFLAGS) src/token.cpp src/lexer.cpp
