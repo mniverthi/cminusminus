@@ -3,24 +3,7 @@
 #define TOKEN
 #include <string>
 #include <unordered_map>
-class Token {
-	private:
-		string text;
-		TokenType type;
-	public:
-		static unordered_map<TokenType, string> keywords; 
-		static unordered_map<TokenType, string> tokens;
-		static TokenType isKeyword(string text);
-		Token(TokenType which, string input);
-		Token(TokenType which, char input);
-		Token();
-		TokenType getType();
-		string getContent();
-		void setType(TokenType which);
-		void setContent(string input);
-		void setContent(char input);
-		bool isCharacter();	
-};
+using namespace std;
 enum TokenType {
 	ENDFILE = -1,
 	NEWLINE = 0,
@@ -53,4 +36,22 @@ enum TokenType {
 	GTEQ = 211
 };
 
+class Token {
+	private:
+		std::string text;
+		TokenType type;
+	public:
+		static unordered_map<int, string> keywords; 
+		static unordered_map<int, string> tokens;
+		static TokenType isKeyword(string text);
+		Token(TokenType which, string input);
+		Token(TokenType which, char input);
+		Token();
+		TokenType getType();
+		string getContent();
+		void setType(TokenType which);
+		void setContent(string input);
+		void setContent(char input);
+		bool isCharacter();	
+};
 #endif

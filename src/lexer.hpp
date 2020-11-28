@@ -19,7 +19,6 @@ class Lexer {
         void skipComment();
         char peekCharacter();
         void skipSpace();
-        void skipComment();
         Token* getToken();
         void abort(string message);
         int getCurrentLine();

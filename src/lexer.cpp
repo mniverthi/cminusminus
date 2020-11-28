@@ -1,3 +1,4 @@
+#include "token.hpp"
 #include "lexer.hpp"
 using namespace std;
 Lexer::Lexer(string input) { // initializes lexer class and sets up input string for parsing
