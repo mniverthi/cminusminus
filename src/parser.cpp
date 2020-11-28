@@ -35,7 +35,7 @@ void Parser::nextToken() {
 }
 void Parser::matchToken(TokenType desired) {
     if (desired != curr -> getType()) {
-        abort("Expected " + desired + ", got " + curr -> getType());
+        abort("Expected " + Token::tokens[desired] + ", got " + Token::tokens[curr -> getType()]);
     }
     nextToken();
 }
