@@ -1,4 +1,4 @@
-#pragma once
+#pragma ONCE
 #ifndef PARSER
 #define PARSER
 #include <string>
