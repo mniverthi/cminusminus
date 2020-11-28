@@ -15,8 +15,11 @@
     nl ::= '\n'+
 */
 #include "parser.hpp"
-#include <iostream>
 using namespace std;
+Parser::Parser(Lexer lex) {
+    lexer = lex;
+    
+}
 void Parser::abort(string message) {
     cout << "Parsing error: " << message << endl;
     cout << "Occurred at: \t" << "Line " << current_line << ", Character " << current_linepos << endl;

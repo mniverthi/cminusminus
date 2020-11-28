@@ -2,6 +2,7 @@
 #ifndef LEXER
 #define LEXER
 #include <string>
+#include <iostream>
 #include "token.hpp"
 class Lexer {
     private:
