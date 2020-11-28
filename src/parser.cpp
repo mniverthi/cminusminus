@@ -41,3 +41,9 @@ void Parser::matchToken(TokenType desired) {
     }
     nextToken();
 }
+bool Parser::checkPeek(TokenType desired) {
+    return peek -> getType() == desired;
+}
+bool Parser::checkToken(TokenType desired) {
+    return curr -> getType() == desired;
+}

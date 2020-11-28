@@ -14,8 +14,8 @@ class Parser {
     public:
         Parser(Lexer* lexer);
         void abort(string message);
-        bool checkToken();
-        bool checkPeek();
+        bool checkToken(TokenType desired);
+        bool checkPeek(TokenType desired);
         void nextToken();
         void matchToken(TokenType desired);
 };
