@@ -1,4 +1,4 @@
-#pragma ONCE
+#pragma once
 #ifndef TOKEN
 #define TOKEN
 #include <string>
