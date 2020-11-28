@@ -9,6 +9,7 @@ class Token {
 		TokenType type;
 	public:
 		static unordered_map<TokenType, string> keywords; 
+		static unordered_map<TokenType, string> tokens;
 		static TokenType isKeyword(string text);
 		Token(TokenType which, std::string input);
 		Token(TokenType which, char input);

@@ -1,9 +1,48 @@
 #include "token.hpp"
 using namespace std;
 //should probably add all token types
-std::unordered_map<TokenType, string> Token::keywords = {{LABEL, "LABEL"}, {GOTO, "GOTO"}, {PRINT, "PRINT"}, {INPUT, "INPUT"}, {LET, "LET"}, {IF, "IF"}, 
-{THEN, "THEN"}, {ENDIF, "ENDIF"}, {WHILE, "WHILE"}, {REPEAT, "REPEAT"}, {ENDWHILE, "ENDWHILE"}};
-
+std::unordered_map<TokenType, string> Token::keywords = {
+    {LABEL, "LABEL"}, 
+    {GOTO, "GOTO"}, 
+    {PRINT, "PRINT"}, 
+    {INPUT, "INPUT"}, 
+    {LET, "LET"}, 
+    {IF, "IF"}, 
+    {THEN, "THEN"}, 
+    {ENDIF, "ENDIF"}, 
+    {WHILE, "WHILE"}, 
+    {REPEAT, "REPEAT"}, 
+    {ENDWHILE, "ENDWHILE"}
+};
+std::unordered_map<TokenType, string> Token::tokens = {
+    {ENDFILE, "ENDFILE"}, 
+    {NEWLINE, "NEWLINE"}, 
+    {NUMBER, "NUMBER"}, 
+    {IDENT, "IDENT"}, 
+    {STRING, "STRING"}, 
+    {LABEL, "LABEL"}, 
+    {GOTO, "GOTO"}, 
+    {PRINT, "PRINT"}, 
+    {INPUT, "INPUT"}, 
+    {LET, "LET"}, 
+    {IF, "IF"}, 
+    {THEN, "THEN"}, 
+    {ENDIF, "ENDIF"}, 
+    {WHILE, "WHILE"}, 
+    {REPEAT, "REPEAT"}, 
+    {ENDWHILE, "ENDWHILE"}, 
+    {EQ, "EQ"}, 
+    {PLUS, "PLUS"}, 
+    {MINUS, "MINUS"}, 
+    {ASTERISK, "ASTERISK"}, 
+    {SLASH, "SLASH"}, 
+    {EQEQ, "EQEQ"}, 
+    {NOTEQ, "NOTEQ"}, 
+    {LT, "LT"}, 
+    {LTEQ, "LTEQ"}, 
+    {GT, "GT"}, 
+    {GTEQ, "GTEQ"}
+};
 Token::Token(TokenType which, std::string input) {
     type = which;
     text = input;
