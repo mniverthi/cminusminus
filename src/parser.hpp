@@ -10,10 +10,10 @@ class Parser {
         Lexer* lexer;
         Token* curr;
         Token* peek;
-        std::stack<Token*> seen;
+        stack<Token*> seen;
     public:
         Parser(Lexer* lexer);
-        void abort(std::string message);
+        void abort(string message);
         bool checkToken();
         bool checkPeek();
         void nextToken();

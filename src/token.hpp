@@ -5,19 +5,19 @@
 #include <unordered_map>
 class Token {
 	private:
-		std::string text;
+		string text;
 		TokenType type;
 	public:
 		static unordered_map<TokenType, string> keywords; 
 		static unordered_map<TokenType, string> tokens;
 		static TokenType isKeyword(string text);
-		Token(TokenType which, std::string input);
+		Token(TokenType which, string input);
 		Token(TokenType which, char input);
 		Token();
 		TokenType getType();
-		std::string getContent();
+		string getContent();
 		void setType(TokenType which);
-		void setContent(std::string input);
+		void setContent(string input);
 		void setContent(char input);
 		bool isCharacter();	
 };

@@ -1,7 +1,6 @@
 #include "token.hpp"
 using namespace std;
-//should probably add all token types
-std::unordered_map<TokenType, string> Token::keywords = {
+unordered_map<TokenType, string> Token::keywords = {
     {LABEL, "LABEL"}, 
     {GOTO, "GOTO"}, 
     {PRINT, "PRINT"}, 
@@ -14,7 +13,7 @@ std::unordered_map<TokenType, string> Token::keywords = {
     {REPEAT, "REPEAT"}, 
     {ENDWHILE, "ENDWHILE"}
 };
-std::unordered_map<TokenType, string> Token::tokens = {
+unordered_map<TokenType, string> Token::tokens = {
     {ENDFILE, "ENDFILE"}, 
     {NEWLINE, "NEWLINE"}, 
     {NUMBER, "NUMBER"}, 
