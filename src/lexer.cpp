@@ -1,23 +1,16 @@
 #include "lexer.hpp"
 using namespace std;
-Lexer::Lexer(string path) { // initializes lexer class and sets up input string for parsing
-    ifstream temp(path);
-    if (temp) {
-        stringstream ss;
-        ss << temp.rdbuf();
-        source = ss.str();
-        current_sourcepos = -1;
-        current_char = 0;
-        current_linepos = 1;
-        current_line = 1;
-        length = source.length();
-        // Extras
-        // file_path = path;
-        // cout << source << endl;
-        nextCharacter();
-    } else {
-        exit(EXIT_FAILURE);
-    }
+Lexer::Lexer(string input) { // initializes lexer class and sets up input string for parsing
+    source = input;
+    current_sourcepos = -1;
+    current_char = 0;
+    current_linepos = 1;
+    current_line = 1;
+    length = source.length();
+    // Extras
+    // file_path = path;
+    // cout << source << endl;
+    nextCharacter();
 }
 void Lexer::nextCharacter() { // moves next character pointer
     if (++current_sourcepos >= length) {
