@@ -66,6 +66,18 @@ void Parser::parse() {
         }
     } else if (checkToken(IF)) {
 
+    } else if (checkToken(WHILE)) {
+        
+    } else if (checkToken(LABEL)) {
+
+    } else if (checkToken(LET)) {
+
+    } else if (checkToken(GOTO)) {
+
+    } else if (checkToken(INPUT)) {
+
+    } else {
+        abort("Invalid statement at " + curr -> getContent() + " (" + curr -> getType() + ")");
     }
     newline();
 }
