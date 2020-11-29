@@ -20,7 +20,7 @@ class Parser {
         void matchToken(TokenType desired);
         void parse();
         void run();
-        void print();
+        void newline();
         void expression();
 };
 #endif

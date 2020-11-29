@@ -48,16 +48,6 @@ bool Parser::checkPeek(TokenType desired) {
 bool Parser::checkToken(TokenType desired) {
     return curr -> getType() == desired;
 }
-void Parser::print() {
-    nextToken();
-    if (checkToken(STRING)) {
-
-        nextToken();
-    } else {
-
-        expression();
-    }
-}
 void Parser::newline() {
     matchToken(NEWLINE);
     while (checkToken(NEWLINE)) {
@@ -66,8 +56,17 @@ void Parser::newline() {
 }
 void Parser::parse() {
     if (checkToken(PRINT)) {
-        print();
-    } e
+        nextToken();
+        if (checkToken(STRING)) {
+
+            nextToken();
+        } else {
+
+            expression();
+        }
+    } else if (checkToken(IF)) {
+
+    }
     newline();
 }
 void Parser::run() {
