@@ -22,5 +22,6 @@ class Parser {
         void run();
         void newline();
         void expression();
+        void compare();
 };
 #endif
