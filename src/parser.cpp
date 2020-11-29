@@ -54,32 +54,47 @@ void Parser::newline() {
         nextToken();
     }
 }
+void Parser::compare() {
+
+}
 void Parser::parse() {
     switch (curr -> getType()) {
         case PRINT:
             nextToken();
             if (checkToken(STRING)) {
-
+                // print statement thing
                 nextToken();
             } else {
-
+                // expression expected
                 expression();
             }
             break;
         case IF:
+            nextToken();
+            compare();
+            match(THEN);
+            while (!checkToken(ENDIF)) {
+                parse();
+            }
+            match(ENDIF);
             break;
         case WHILE:
+            nextToken();
             break;
         case LABEL:
+            nextToken();
             break;
         case LET:
+            nextToken();
             break;
         case GOTO:
+            nextToken();
             break;
         case INPUT:
+            nextToken();
             break;
         default:
-            abort("Invalid statement at " + curr -> getContent() + " (" + curr -> getType() + ")");
+            abort("Invalid statement at " + curr -> getContent() + " (" + to_string(curr -> getType()) + ")");
             break;
     }
     newline();
