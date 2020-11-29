@@ -16,6 +16,7 @@
 */
 #include "parser.hpp"
 using namespace std;
+
 Parser::Parser(Lexer* lex) {
     lexer = lex;
     curr = nullptr;
@@ -47,11 +48,32 @@ bool Parser::checkPeek(TokenType desired) {
 bool Parser::checkToken(TokenType desired) {
     return curr -> getType() == desired;
 }
-void Parser::parse() {
+void Parser::print() {
+    nextToken();
+    if (checkToken(STRING)) {
 
+        nextToken();
+    } else {
+
+        expression();
+    }
+}
+void Parser::newline() {
+    matchToken(NEWLINE);
+    while (checkToken(NEWLINE)) {
+        nextToken();
+    }
+}
+void Parser::parse() {
+    if (checkToken(PRINT)) {
+        print();
+    } e
+    newline();
 }
 void Parser::run() {
-
+    while (curr -> getType() != ENDFILE) {
+        parse();
+    }
 }
 
 //TODO: make AST stuff
