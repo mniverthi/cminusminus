@@ -47,5 +47,11 @@ bool Parser::checkPeek(TokenType desired) {
 bool Parser::checkToken(TokenType desired) {
     return curr -> getType() == desired;
 }
+void Parser::parse() {
+
+}
+void Parser::run() {
+
+}
 
 //TODO: make AST stuff

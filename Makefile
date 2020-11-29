@@ -15,4 +15,4 @@ token:
 	@$(CC) -c $(CFLAGS) src/token.cpp
 
 lexer:
-	@$(CC) -c $(CFLAGS) src/token.cpp src/lexer.cpp
+	@$(CC) -c $(CFLAGS) src/token.cpp src/lexer.cpp	
