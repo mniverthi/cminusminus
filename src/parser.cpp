@@ -55,29 +55,32 @@ void Parser::newline() {
     }
 }
 void Parser::parse() {
-    if (checkToken(PRINT)) {
-        nextToken();
-        if (checkToken(STRING)) {
-
+    switch (curr -> getType()) {
+        case PRINT:
             nextToken();
-        } else {
+            if (checkToken(STRING)) {
 
-            expression();
-        }
-    } else if (checkToken(IF)) {
+                nextToken();
+            } else {
 
-    } else if (checkToken(WHILE)) {
-        
-    } else if (checkToken(LABEL)) {
-
-    } else if (checkToken(LET)) {
-
-    } else if (checkToken(GOTO)) {
-
-    } else if (checkToken(INPUT)) {
-
-    } else {
-        abort("Invalid statement at " + curr -> getContent() + " (" + curr -> getType() + ")");
+                expression();
+            }
+            break;
+        case IF:
+            break;
+        case WHILE:
+            break;
+        case LABEL:
+            break;
+        case LET:
+            break;
+        case GOTO:
+            break;
+        case INPUT:
+            break;
+        default:
+            abort("Invalid statement at " + curr -> getContent() + " (" + curr -> getType() + ")");
+            break;
     }
     newline();
 }
