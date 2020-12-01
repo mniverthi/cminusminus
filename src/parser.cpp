@@ -75,7 +75,10 @@ void Parser::expression() {
     }
 }
 void Parser::unary() {
-
+    if (checkToken(PLUS) || checkToken(MINUS)) {
+        nextToken();  
+    }
+    primary();
 }
 void Parser::term() {
     
