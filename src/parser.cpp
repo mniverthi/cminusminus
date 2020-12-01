@@ -81,10 +81,20 @@ void Parser::unary() {
     primary();
 }
 void Parser::term() {
-    
+    unary();
+    while (checkToken(ASTERISK) || checkToken(SLASH)) {
+        nextToken();
+        unary();
+    }
 }
 void Parser::primary() {
-
+    if (checkToken(NUMBER)) {
+        nextToken();
+    } else if (checkToken(IDENT)) {
+        nextToken();
+    } else {
+        abort("Unexpected token at " + curr -> getContent());
+    }
 }
 void Parser::parse() {
     switch (curr -> getType()) {
