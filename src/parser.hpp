@@ -23,5 +23,8 @@ class Parser {
         void newline();
         void expression();
         void comparison();
+        void term();
+        void unary();
+        void primary();
 };
 #endif

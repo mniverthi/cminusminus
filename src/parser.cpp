@@ -55,6 +55,18 @@ void Parser::newline() {
     }
 }
 void Parser::comparison() {
+
+}
+void Parser::expression() {
+
+}
+void Parser::unary() {
+
+}
+void Parser::term() {
+
+}
+void Parser::primary() {
     
 }
 void Parser::parse() {
