@@ -68,13 +68,17 @@ void Parser::comparison() {
     }
 }
 void Parser::expression() {
-
+    term();
+    while (checkToken(PLUS) || checkToken(MINUS)) {
+        nextToken();
+        term();
+    }
 }
 void Parser::unary() {
 
 }
 void Parser::term() {
-
+    
 }
 void Parser::primary() {
 
