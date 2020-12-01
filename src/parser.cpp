@@ -54,8 +54,8 @@ void Parser::newline() {
         nextToken();
     }
 }
-void Parser::compare() {
-
+void Parser::comparison() {
+    
 }
 void Parser::parse() {
     switch (curr -> getType()) {
@@ -71,7 +71,7 @@ void Parser::parse() {
             break;
         case IF:
             nextToken();
-            compare();
+            comparison();
             matchToken(THEN);
             while (!checkToken(ENDIF)) {
                 parse();
@@ -80,7 +80,7 @@ void Parser::parse() {
             break;
         case WHILE:
             nextToken();
-            compare();
+            comparison();
             matchToken(REPEAT);
             newline();
             while(!checkToken(ENDWHILE)) {
