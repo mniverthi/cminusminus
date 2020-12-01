@@ -43,6 +43,7 @@ class Token {
 	public:
 		static unordered_map<int, string> keywords; 
 		static unordered_map<int, string> tokens;
+		static unordered_map<int, string> comparison;
 		static TokenType isKeyword(string text);
 		Token(TokenType which, string input);
 		Token(TokenType which, char input);
@@ -53,5 +54,6 @@ class Token {
 		void setContent(string input);
 		void setContent(char input);
 		bool isCharacter();	
+		bool isComparison();
 };
 #endif

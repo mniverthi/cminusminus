@@ -13,6 +13,14 @@ unordered_map<int, string> Token::keywords = {
     {REPEAT, "REPEAT"}, 
     {ENDWHILE, "ENDWHILE"}
 };
+unordered_map<int, string> Token::comparison = {
+    {EQEQ, "EQEQ"}, 
+    {NOTEQ, "NOTEQ"}, 
+    {LT, "LT"}, 
+    {LTEQ, "LTEQ"}, 
+    {GT, "GT"}, 
+    {GTEQ, "GTEQ"}
+};
 unordered_map<int, string> Token::tokens = {
     {ENDFILE, "ENDFILE"}, 
     {NEWLINE, "NEWLINE"}, 
@@ -78,5 +86,8 @@ TokenType Token::isKeyword(string text) {
         advance(it, 1);
     }
     return TokenType::IDENT; 
+}
+bool Token::isComparison() {
+    return comparison.count(type);
 }
             
