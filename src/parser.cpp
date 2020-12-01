@@ -72,14 +72,21 @@ void Parser::parse() {
         case IF:
             nextToken();
             compare();
-            match(THEN);
+            matchToken(THEN);
             while (!checkToken(ENDIF)) {
                 parse();
             }
-            match(ENDIF);
+            matchToken(ENDIF);
             break;
         case WHILE:
             nextToken();
+            compare();
+            matchToken(REPEAT);
+            newline();
+            while(!checkToken(ENDWHILE)) {
+                parse();
+            }
+            matchToken(ENDWHILE);
             break;
         case LABEL:
             nextToken();
