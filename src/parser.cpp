@@ -55,7 +55,17 @@ void Parser::newline() {
     }
 }
 void Parser::comparison() {
-
+    expression();
+    if ((curr -> getType()).isComparison()) {
+        nextToken();
+        expression();
+    } else {
+        abort("Expected comparison operator at: " + curr -> getContent());
+    }
+    while ((curr -> getType()).isComparison()) {
+        nextToken();
+        expression();
+    }
 }
 void Parser::expression() {
 
@@ -67,7 +77,7 @@ void Parser::term() {
 
 }
 void Parser::primary() {
-    
+
 }
 void Parser::parse() {
     switch (curr -> getType()) {
