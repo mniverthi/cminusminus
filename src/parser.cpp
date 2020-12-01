@@ -88,18 +88,26 @@ void Parser::parse() {
             }
             matchToken(ENDWHILE);
             break;
+        case GOTO:
+        case INPUT:
         case LABEL:
             nextToken();
+            matchToken(IDENT);
             break;
         case LET:
             nextToken();
+            matchToken(IDENT);
+            matchToken(EQ);
+            expression();
             break;
-        case GOTO:
-            nextToken();
-            break;
-        case INPUT:
-            nextToken();
-            break;
+        // case GOTO:
+        //     nextToken();
+        //     matchToken(IDENT);
+        //     break;
+        // case INPUT:
+        //     nextToken();
+        //     matchToken(IDENT);
+        //     break;
         default:
             abort("Invalid statement at " + curr -> getContent() + " (" + to_string(curr -> getType()) + ")");
             break;
