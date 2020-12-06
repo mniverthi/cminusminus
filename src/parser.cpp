@@ -58,13 +58,13 @@ void Parser::newline() {
 }
 void Parser::comparison() {
     expression();
-    if ((curr -> getType()).isComparison()) {
+    if (curr -> isComparison()) {
         nextToken();
         expression();
     } else {
         abort("Expected comparison operator at: " + curr -> getContent());
     }
-    while ((curr -> getType()).isComparison()) {
+    while (curr -> isComparison()) {
         nextToken();
         expression();
     }
