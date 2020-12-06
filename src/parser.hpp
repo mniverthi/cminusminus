@@ -2,17 +2,17 @@
 #ifndef PARSER
 #define PARSER
 #include <string>
-#include <stack>
 #include <iostream>
 #include "lexer.hpp"
+#include "emitter.hpp"
 class Parser {
     private:
         Lexer* lexer;
         Token* curr;
         Token* peek;
-        stack<Token*> seen;
+        Emitter* emitter;
     public:
-        Parser(Lexer* lexer);
+        Parser(Lexer* lexer, Emitter* emitter);
         void abort(string message);
         bool checkToken(TokenType desired);
         bool checkPeek(TokenType desired);

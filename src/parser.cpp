@@ -1,18 +1,18 @@
-/*
-    program ::= {statement}
-    statement ::= "PRINT" (expression | string) nl
-        | "IF" comparison "THEN" nl {statement} "ENDIF" nl
-        | "WHILE" comparison "REPEAT" nl {statement} "ENDWHILE" nl
-        | "LABEL" ident nl
-        | "GOTO" ident nl
-        | "LET" ident "=" expression nl
-        | "INPUT" ident nl
-    comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression) +
-    expression ::= term {( "-" | "+" ) term}
-    term ::= unary {( "/" | "*" ) unary}
-    unary ::= ["+" | "-"] primary
-    primary ::= number | ident
-    nl ::= '\n'+
+/**
+ * program ::= {statement}
+ * statement ::= "PRINT" (expression | string) nl
+ *      | "IF" comparison "THEN" nl {statement} "ENDIF" nl
+ *      | "WHILE" comparison "REPEAT" nl {statement} "ENDWHILE" nl
+ *      | "LABEL" ident nl
+ *      | "GOTO" ident nl
+ *      | "LET" ident "=" expression nl
+ *      | "INPUT" ident nl
+ * comparison ::= expression (("==" | "!=" | ">" | ">=" | "<" | "<=") expression) +
+ * expression ::= term {( "-" | "+" ) term}
+ * term ::= unary {( "/" | "*" ) unary}
+ * unary ::= ["+" | "-"] primary
+ * primary ::= number | ident
+ * nl ::= '\n'+
 */
 #include "parser.hpp"
 using namespace std;
@@ -48,6 +48,7 @@ bool Parser::checkPeek(TokenType desired) {
 bool Parser::checkToken(TokenType desired) {
     return curr -> getType() == desired;
 }
+// TODO: make AST stuff
 void Parser::newline() {
     matchToken(NEWLINE);
     while (checkToken(NEWLINE)) {
@@ -159,4 +160,3 @@ void Parser::run() {
     }
 }
 
-//TODO: make AST stuff
