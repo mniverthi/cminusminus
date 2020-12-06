@@ -17,8 +17,9 @@
 #include "parser.hpp"
 using namespace std;
 
-Parser::Parser(Lexer* lex) {
+Parser::Parser(Lexer* lex, Emitter* emit) {
     lexer = lex;
+    emitter = emit;
     curr = nullptr;
     peek = nullptr;
     nextToken();

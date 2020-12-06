@@ -9,6 +9,7 @@ class Emitter {
         string header;
         string code;
     public:
+        Emitter(string path);
         void emit(string new_code);
         void emitLine();
         void headerLine();
