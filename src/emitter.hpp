@@ -2,17 +2,18 @@
 #ifndef EMITTER
 #define EMITTER
 #include <string>
-#include <iostream>
+#include <fstream>
+#include <sstream>
 class Emitter {
     private:
-        string desired_path;
+        string output;
         string header;
         string code;
     public:
         Emitter(string path);
         void emit(string new_code);
-        void emitLine();
-        void headerLine();
+        void emitLine(string new_line);
+        void headerLine(string new_line);
         void writeFile();
 };
 #endif
