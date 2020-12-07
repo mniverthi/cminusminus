@@ -3,6 +3,7 @@
 #define PARSER
 #include <string>
 #include <iostream>
+#include <unordered_set>
 #include "lexer.hpp"
 #include "emitter.hpp"
 class Parser {
@@ -12,6 +13,8 @@ class Parser {
         Token* peek;
         Emitter* emitter;
     public:
+        unordered_set<Token> labels_referenced;
+        unordered_set<Token> labels_declared;
         Parser(Lexer* lexer, Emitter* emitter);
         void abort(string message);
         bool checkToken(TokenType desired);

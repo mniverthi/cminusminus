@@ -156,8 +156,25 @@ void Parser::parse() {
     newline();
 }
 void Parser::run() {
+    emitter -> headerLine("#include <stdio.h>");
+    emitter -> headerLine("");
+    emitter -> headerLine("int main(void) {");
+
+    while (checkToken(NEWLINE)) {
+        nextToken();
+    }
+
     while (curr -> getType() != ENDFILE) {
         parse();
     }
+
+    emitter -> emitLine("return 0;");
+    emitter -> emitLine("}");
+
+    for (auto i : labels_referenced) {
+        if (!labels_declared.count(i)) {
+            abort("Attempting to GOTO an undeclared label: " + i.getContent());
+        }
+    }    
 }
 
