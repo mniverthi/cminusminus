@@ -13,8 +13,9 @@ class Parser {
         Token* peek;
         Emitter* emitter;
     public:
-        unordered_set<Token> labels_referenced;
-        unordered_set<Token> labels_declared;
+        unordered_set<string> jumped_labels;
+        unordered_set<string> declared_labels;
+        unordered_set<string> symbols;
         Parser(Lexer* lexer, Emitter* emitter);
         void abort(string message);
         bool checkToken(TokenType desired);

@@ -104,51 +104,81 @@ void Parser::parse() {
             nextToken();
             if (checkToken(STRING)) {
                 // print statement thing
+                emitter -> emitLine("printf(\"" + curr -> getContent() + "\\n\");");
                 nextToken();
             } else {
                 // expression expected
+                emitter -> emit("printf(\"%.2f\\n\", (float)(");
                 expression();
+                emitter -> emit("));");
             }
             break;
         case IF:
             nextToken();
+            emitter -> emit("if (");
             comparison();
             matchToken(THEN);
+            newline();
+            emitter -> emit(") {");
             while (!checkToken(ENDIF)) {
                 parse();
             }
             matchToken(ENDIF);
+            emitter -> emit("}");
             break;
         case WHILE:
             nextToken();
+            emitter -> emit("while (");
             comparison();
             matchToken(REPEAT);
             newline();
+            emitter -> emit(") {");
             while(!checkToken(ENDWHILE)) {
                 parse();
             }
             matchToken(ENDWHILE);
+            emitter -> emit("}");
             break;
         case GOTO:
+            nextToken();
+            jumped_labels.insert(curr -> getContent());
+            emitter -> emitLine("goto: " + curr -> getContent() + ";");
+            matchToken(IDENT);
+            break;
         case INPUT:
+            nextToken();
+            if (!symbols.count(curr -> getContent())) {
+                symbols.insert(curr -> getContent());
+                emitter -> headerLine("float " + curr -> getContent() + ";");
+            }
+            emitter -> emitLine("if(0 == scanf(\"%" + "f\", &" + curr -> getContent() + ")) {");
+            emitter -> emitLine(curr -> getContent() + " = 0;");
+            emitter -> emit("scanf(\"%");
+            emitter -> emitLine("*s\");");
+            emitter -> emitLine("}");
+            matchToken(IDENT);
+            break;
         case LABEL:
             nextToken();
+            if (declared_labels.count(curr -> getContent())) {
+                abort("Label already exists: " + curr -> getContent());
+            }
+            declared_labels.insert(curr -> getContent());
+            emitter -> emitLine(curr -> getContent() + ":");
             matchToken(IDENT);
             break;
         case LET:
             nextToken();
+            if (!symbols.count(curr -> getContent())) {
+                symbols.insert(curr -> getContent());
+                emitter -> headerLine("float " + curr -> getContent() + ";");
+            }
+            emitter -> emit(curr -> getContent() + "=");
             matchToken(IDENT);
             matchToken(EQ);
             expression();
+            emitter -> emitLine(";");
             break;
-        // case GOTO:
-        //     nextToken();
-        //     matchToken(IDENT);
-        //     break;
-        // case INPUT:
-        //     nextToken();
-        //     matchToken(IDENT);
-        //     break;
         default:
             abort("Invalid statement at " + curr -> getContent() + " (" + to_string(curr -> getType()) + ")");
             break;
@@ -171,9 +201,9 @@ void Parser::run() {
     emitter -> emitLine("return 0;");
     emitter -> emitLine("}");
 
-    for (auto i : labels_referenced) {
-        if (!labels_declared.count(i)) {
-            abort("Attempting to GOTO an undeclared label: " + i.getContent());
+    for (auto i : jumped_labels) {
+        if (!declared_labels.count(i)) {
+            abort("Attempting to GOTO an undeclared label: " + i);
         }
     }    
 }
