@@ -4,6 +4,7 @@
 #include <sstream>
 #include <fstream>
 using namespace std;
+// TODO: ARM rebuild, comments, AST
 int main(int argc, char** argv) {
     cout << "mangolang Compiler: v 1.0" << endl; 
     if (argc < 3) {
@@ -25,7 +26,7 @@ int main(int argc, char** argv) {
     Lexer* lex = new Lexer(source);
     Emitter* emit = new Emitter(desired);
     Parser* pars = new Parser(lex, emit); 
-    //TODO: do stuff with this
+    // TODO: do stuff with this and make sure memory is safe
     delete lex;
     delete emit;
     delete pars;

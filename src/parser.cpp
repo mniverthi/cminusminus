@@ -17,6 +17,7 @@
 #include "parser.hpp"
 using namespace std;
 
+
 Parser::Parser(Lexer* lex, Emitter* emit) {
     lexer = lex;
     emitter = emit;
@@ -28,6 +29,12 @@ Parser::Parser(Lexer* lex, Emitter* emit) {
 void Parser::abort(string message) {
     cout << "Parsing error: " << message << endl;
     cout << "Occurred at: \t" << "Line " << lexer -> getCurrentLine() << ", Character " << lexer -> getCurrentLinePos() << endl;
+    if (curr) {
+        delete curr;
+    }
+    if (peek) {
+        delete peek;
+    }
     exit(EXIT_FAILURE);
 }
 void Parser::nextToken() {
@@ -49,7 +56,7 @@ bool Parser::checkPeek(TokenType desired) {
 bool Parser::checkToken(TokenType desired) {
     return curr -> getType() == desired;
 }
-// TODO: make AST stuff
+
 void Parser::newline() {
     matchToken(NEWLINE);
     while (checkToken(NEWLINE)) {
@@ -59,12 +66,14 @@ void Parser::newline() {
 void Parser::comparison() {
     expression();
     if (curr -> isComparison()) {
+        emitter -> emit(curr -> getContent());
         nextToken();
         expression();
     } else {
         abort("Expected comparison operator at: " + curr -> getContent());
     }
     while (curr -> isComparison()) {
+        emitter -> emit(curr -> getContent());
         nextToken();
         expression();
     }
@@ -72,12 +81,14 @@ void Parser::comparison() {
 void Parser::expression() {
     term();
     while (checkToken(PLUS) || checkToken(MINUS)) {
+        emitter -> emit(curr -> getContent());
         nextToken();
         term();
     }
 }
 void Parser::unary() {
     if (checkToken(PLUS) || checkToken(MINUS)) {
+        emitter -> emit(curr -> getContent());
         nextToken();  
     }
     primary();
@@ -85,14 +96,20 @@ void Parser::unary() {
 void Parser::term() {
     unary();
     while (checkToken(ASTERISK) || checkToken(SLASH)) {
+        emitter -> emit(curr -> getContent());
         nextToken();
         unary();
     }
 }
 void Parser::primary() {
     if (checkToken(NUMBER)) {
+        emitter -> emit(curr -> getContent());
         nextToken();
     } else if (checkToken(IDENT)) {
+        if (!symbols.count(curr -> getContent())) {
+            abort("Referencing variable before assignment: " + curr -> getContent());
+        }
+        emitter -> emit(curr -> getContent());
         nextToken();
     } else {
         abort("Unexpected token at " + curr -> getContent());
