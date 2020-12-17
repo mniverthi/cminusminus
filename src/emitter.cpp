@@ -3,15 +3,19 @@ using namespace std;
 
 Emitter::Emitter(string path) {
     output = path;
-    header = "";
+    data = "";
     code = "";
 }
 
-void Emitter::headerLine(string new_line) {
-    header += new_line + "\n";
+void Emitter::dataLine(string new_line) {
+    data += new_line + "\n";
 }
 
-void Emitter::emitLine(string new_line) {
+void Emitter::bssLine(string new_line) {
+    bss += new_line + "\n";
+}
+
+void Emitter::textLine(string new_line) {
     code += new_line + "\n";
 }
 
@@ -19,9 +23,13 @@ void Emitter::emit(string new_code) {
     code += new_code;
 }
 
+void Emitter::headerLine(string new_line) {
+    header += new_line + "\n";
+}
+
 void Emitter::writeFile() {
     ofstream source;
     source.open(output);
-    source << header << code;
+    source << data << code;
     source.close();
 }

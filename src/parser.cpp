@@ -166,7 +166,7 @@ void Parser::parse() {
             nextToken();
             if (!symbols.count(curr -> getContent())) {
                 symbols.insert(curr -> getContent());
-                emitter -> headerLine("float " + curr -> getContent() + ";");
+                emitter -> dataLine("float " + curr -> getContent() + ";");
             }
             emitter -> emitLine("if(0 == scanf(\"%" + "f\", &" + curr -> getContent() + ")) {");
             emitter -> emitLine(curr -> getContent() + " = 0;");
@@ -188,7 +188,7 @@ void Parser::parse() {
             nextToken();
             if (!symbols.count(curr -> getContent())) {
                 symbols.insert(curr -> getContent());
-                emitter -> headerLine("float " + curr -> getContent() + ";");
+                emitter -> dataLine("float " + curr -> getContent() + ";");
             }
             emitter -> emit(curr -> getContent() + "=");
             matchToken(IDENT);
@@ -203,9 +203,16 @@ void Parser::parse() {
     newline();
 }
 void Parser::run() {
-    emitter -> headerLine("#include <stdio.h>");
-    emitter -> headerLine("");
-    emitter -> headerLine("int main(void) {");
+    // emitter -> dataLine("#include <stdio.h>");
+    // emitter -> dataLine("");
+    // emitter -> dataLine("int main(void) {");
+
+    emitter -> headerLine("global _start");
+    emitter -> dataLine("section .data");
+    emitter -> emitLine("section .text");
+    emitter -> bssLine("section .bss");
+
+    emitter -> textLine("_start:");
 
     while (checkToken(NEWLINE)) {
         nextToken();
@@ -215,8 +222,8 @@ void Parser::run() {
         parse();
     }
 
-    emitter -> emitLine("return 0;");
-    emitter -> emitLine("}");
+    // emitter -> emitLine("return 0;");
+    // emitter -> emitLine("}");
 
     for (auto i : jumped_labels) {
         if (!declared_labels.count(i)) {
