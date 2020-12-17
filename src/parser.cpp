@@ -26,6 +26,7 @@ Parser::Parser(Lexer* lex, Emitter* emit) {
     nextToken();
     nextToken();
 }
+
 void Parser::abort(string message) {
     cout << "Parsing error: " << message << endl;
     cout << "Occurred at: \t" << "Line " << lexer -> getCurrentLine() << ", Character " << lexer -> getCurrentLinePos() << endl;
@@ -37,6 +38,7 @@ void Parser::abort(string message) {
     }
     exit(EXIT_FAILURE);
 }
+
 void Parser::nextToken() {
     if (curr) {
         delete curr;
@@ -44,15 +46,18 @@ void Parser::nextToken() {
     curr = peek;
     peek = lexer -> getToken();
 }
+
 void Parser::matchToken(TokenType desired) {
     if (desired != curr -> getType()) {
         abort("Expected " + Token::tokens[desired] + ", got " + Token::tokens[curr -> getType()]);
     }
     nextToken();
 }
+
 bool Parser::checkPeek(TokenType desired) {
     return peek -> getType() == desired;
 }
+
 bool Parser::checkToken(TokenType desired) {
     return curr -> getType() == desired;
 }
@@ -63,6 +68,7 @@ void Parser::newline() {
         nextToken();
     }
 }
+
 void Parser::comparison() {
     expression();
     if (curr -> isComparison()) {
@@ -78,6 +84,7 @@ void Parser::comparison() {
         expression();
     }
 }
+
 void Parser::expression() {
     term();
     while (checkToken(PLUS) || checkToken(MINUS)) {
@@ -86,6 +93,7 @@ void Parser::expression() {
         term();
     }
 }
+
 void Parser::unary() {
     if (checkToken(PLUS) || checkToken(MINUS)) {
         emitter -> emit(curr -> getContent());
@@ -93,6 +101,7 @@ void Parser::unary() {
     }
     primary();
 }
+
 void Parser::term() {
     unary();
     while (checkToken(ASTERISK) || checkToken(SLASH)) {
@@ -101,6 +110,7 @@ void Parser::term() {
         unary();
     }
 }
+
 void Parser::primary() {
     if (checkToken(NUMBER)) {
         emitter -> emit(curr -> getContent());
@@ -115,13 +125,16 @@ void Parser::primary() {
         abort("Unexpected token at " + curr -> getContent());
     }
 }
+
 void Parser::parse() {
     switch (curr -> getType()) {
         case PRINT:
             nextToken();
             if (checkToken(STRING)) {
                 // print statement thing
-                emitter -> emitLine("printf(\"" + curr -> getContent() + "\\n\");");
+                // emitter -> textLine("printf(\"" + curr -> getContent() + "\\n\");");
+                emitter -> textLine("mov rax, " + curr -> getContent());
+                emitter -> textLine("call puts");
                 nextToken();
             } else {
                 // expression expected
@@ -159,20 +172,23 @@ void Parser::parse() {
         case GOTO:
             nextToken();
             jumped_labels.insert(curr -> getContent());
-            emitter -> emitLine("goto: " + curr -> getContent() + ";");
+            // emitter -> textLine("goto: " + curr -> getContent() + ";");
             matchToken(IDENT);
+            emitter -> textLine("jmp: " + curr -> getContent());
             break;
         case INPUT:
             nextToken();
             if (!symbols.count(curr -> getContent())) {
                 symbols.insert(curr -> getContent());
-                emitter -> dataLine("float " + curr -> getContent() + ";");
+                // emitter -> dataLine("float " + curr -> getContent() + ";");
+                emitter -> dataLine(curr -> getContent() + ": resq 1"); 
             }
-            emitter -> emitLine("if(0 == scanf(\"%" + "f\", &" + curr -> getContent() + ")) {");
-            emitter -> emitLine(curr -> getContent() + " = 0;");
-            emitter -> emit("scanf(\"%");
-            emitter -> emitLine("*s\");");
-            emitter -> emitLine("}");
+            // emitter -> textLine("if(0 == scanf(\"%" + "f\", &" + curr -> getContent() + ")) {");
+            // emitter -> textLine(curr -> getContent() + " = 0;");
+            // emitter -> emit("scanf(\"%");
+            // emitter -> textLine("*s\");");
+            // emitter -> textLine("}");
+
             matchToken(IDENT);
             break;
         case LABEL:
@@ -181,20 +197,23 @@ void Parser::parse() {
                 abort("Label already exists: " + curr -> getContent());
             }
             declared_labels.insert(curr -> getContent());
-            emitter -> emitLine(curr -> getContent() + ":");
+            emitter -> textLine(curr -> getContent() + ":");
             matchToken(IDENT);
             break;
         case LET:
             nextToken();
             if (!symbols.count(curr -> getContent())) {
                 symbols.insert(curr -> getContent());
-                emitter -> dataLine("float " + curr -> getContent() + ";");
+                // emitter -> dataLine("float " + curr -> getContent() + ";");
+                emitter -> bssLine(curr -> getContent() + ": resq 1");
             }
-            emitter -> emit(curr -> getContent() + "=");
+            emitter -> textLine("mov rax, " + curr -> getContent());
+            // emitter -> emit(curr -> getContent() + "=");
             matchToken(IDENT);
             matchToken(EQ);
             expression();
-            emitter -> emitLine(";");
+            // emitter -> textLine(";");
+            emitter -> textLine("mov [" + curr -> getContent() + "], rbx");
             break;
         default:
             abort("Invalid statement at " + curr -> getContent() + " (" + to_string(curr -> getType()) + ")");
@@ -208,8 +227,10 @@ void Parser::run() {
     // emitter -> dataLine("int main(void) {");
 
     emitter -> headerLine("global _start");
+    emitter -> headerLine("extern puts");
+
     emitter -> dataLine("section .data");
-    emitter -> emitLine("section .text");
+    emitter -> textLine("section .text");
     emitter -> bssLine("section .bss");
 
     emitter -> textLine("_start:");
@@ -222,8 +243,8 @@ void Parser::run() {
         parse();
     }
 
-    // emitter -> emitLine("return 0;");
-    // emitter -> emitLine("}");
+    // emitter -> textLine("return 0;");
+    // emitter -> textLine("}");
 
     for (auto i : jumped_labels) {
         if (!declared_labels.count(i)) {
