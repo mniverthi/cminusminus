@@ -138,36 +138,36 @@ void Parser::parse() {
                 nextToken();
             } else {
                 // expression expected
-                emitter -> emit("printf(\"%.2f\\n\", (float)(");
+                // emitter -> emit("printf(\"%.2f\\n\", (float)(");
                 expression();
-                emitter -> emit("));");
+                // emitter -> emit("));");
             }
             break;
         case IF:
             nextToken();
-            emitter -> emit("if (");
+            // emitter -> emit("if (");
             comparison();
             matchToken(THEN);
             newline();
-            emitter -> emit(") {");
+            // emitter -> emit(") {");
             while (!checkToken(ENDIF)) {
                 parse();
             }
             matchToken(ENDIF);
-            emitter -> emit("}");
+            // emitter -> emit("}");
             break;
         case WHILE:
             nextToken();
-            emitter -> emit("while (");
+            // emitter -> emit("while (");
             comparison();
             matchToken(REPEAT);
             newline();
-            emitter -> emit(") {");
+            // emitter -> emit(") {");
             while(!checkToken(ENDWHILE)) {
                 parse();
             }
             matchToken(ENDWHILE);
-            emitter -> emit("}");
+            // emitter -> emit("}");
             break;
         case GOTO:
             nextToken();
