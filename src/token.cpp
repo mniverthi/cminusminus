@@ -13,6 +13,7 @@ unordered_map<int, string> Token::keywords = {
     {REPEAT, "REPEAT"}, 
     {ENDWHILE, "ENDWHILE"}
 };
+
 unordered_map<int, string> Token::comparison = {
     {EQEQ, "EQEQ"}, 
     {NOTEQ, "NOTEQ"}, 
@@ -21,6 +22,7 @@ unordered_map<int, string> Token::comparison = {
     {GT, "GT"}, 
     {GTEQ, "GTEQ"}
 };
+
 unordered_map<int, string> Token::tokens = {
     {ENDFILE, "ENDFILE"}, 
     {NEWLINE, "NEWLINE"}, 
@@ -50,33 +52,42 @@ unordered_map<int, string> Token::tokens = {
     {GT, "GT"}, 
     {GTEQ, "GTEQ"}
 };
+
 Token::Token(TokenType which, std::string input) {
     type = which;
     text = input;
 }
+
 Token::Token(TokenType which, char input) {
     type = which;
     text = to_string(input);
 }
+
 Token::Token() { }
 string Token::getContent() {
     return text;
 }
+
 TokenType Token::getType() {
     return type;
 }
+
 void Token::setType(TokenType which) { 
     type = which;
 }
+
 void Token::setContent(std::string input) { 
     text = input;
 }
+
 void Token::setContent(char input) { 
     text = to_string(input);
 }
+
 bool Token::isCharacter() {
     return text.length() == 1;
 }
+
 TokenType Token::isKeyword(string text) {
     std::unordered_map<int, string>::iterator it = keywords.begin();
     while (it != keywords.end()) {
@@ -87,6 +98,7 @@ TokenType Token::isKeyword(string text) {
     }
     return TokenType::IDENT; 
 }
+
 bool Token::isComparison() {
     return comparison.count(type);
 }

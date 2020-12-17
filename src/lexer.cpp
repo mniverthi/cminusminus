@@ -13,6 +13,7 @@ Lexer::Lexer(string input) { // initializes lexer class and sets up input string
     // cout << source << endl;
     nextCharacter();
 }
+
 void Lexer::nextCharacter() { // moves next character pointer
     if (++current_sourcepos >= length) {
         current_char = '\0'; // reached the end of the file
@@ -20,6 +21,7 @@ void Lexer::nextCharacter() { // moves next character pointer
         current_char = source[current_sourcepos];
     }
 }
+
 void Lexer::skipComment() {
     if (current_char == '#') {
         while (current_char != '\n') {
@@ -27,14 +29,17 @@ void Lexer::skipComment() {
         }
     }
 }
+
 char Lexer::peekCharacter() {
     return current_sourcepos + 1 >= length ? '\0' : source[current_sourcepos + 1];
 }
+
 void Lexer::skipSpace() {
     while (current_char == ' ' || current_char == '\t' || current_char == '\r') {
         nextCharacter();
     }
 }
+
 Token* Lexer::getToken() { // next token logic
     skipSpace();
     skipComment();
@@ -146,6 +151,7 @@ Token* Lexer::getToken() { // next token logic
     nextCharacter();
     return current;
 }
+
 void Lexer::abort(string message) {
     cout << "Lexing error: " << message << endl;
     cout << "Occurred at: \t" << "Line " << current_line << ", Character " << current_linepos << endl;

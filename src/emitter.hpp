@@ -14,7 +14,7 @@ class Emitter {
     public:
         Emitter(string path);
         void emit(string new_code);
-        void emitLine(string new_line);
+        void textLine(string new_line);
         void dataLine(string new_line);
         void bssLine(string new_line);
         void headerLine(string new_line);
