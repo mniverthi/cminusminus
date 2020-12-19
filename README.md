@@ -1,5 +1,5 @@
 # MangoLang
-Attempt at building compiler for MangoLang programming language (BASIC-like) into x86 assembly (NASM-ish dialect)
+Attempt at building compiler for MangoLang programming language (BASIC-like) into C and then ~~x86 assembly (NASM-ish dialect)~~
 ### Features
 * Numerical variables
 * Basic arithmetic
